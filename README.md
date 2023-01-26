@@ -8,13 +8,13 @@ In this repository, I have documented my hands on experience with Terrafrom for 
 
 With the usage of this example HCL code you can build topology documented by diagram below. This topology is extremly simplified for education purposes and rather cannot be used for production implementations. 
 
-![](terraform-oci-oke-container-instance.png)
+![](terraform-oci-container-instance.png)
 
 ## How to use code 
 
 ### Deploy Using Oracle Resource Manager
 
-1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/terraform-oci-oke-container-instance/releases/latest/download/terraform-oci-oke-container-instance-stack-latest.zip)
+1. Click [![Deploy to Oracle Cloud](https://oci-resourcemanager-plugin.plugins.oci.oraclecloud.com/latest/deploy-to-oracle-cloud.svg)](https://cloud.oracle.com/resourcemanager/stacks/create?region=home&zipUrl=https://github.com/mlinxfeld/terraform-oci-container-instance/releases/latest/download/terraform-oci-container-instance-stack-latest.zip)
 
     If you aren't already signed in, when prompted, enter the tenancy and user credentials.
 
@@ -39,8 +39,8 @@ With the usage of this example HCL code you can build topology documented by dia
 Clone the repo from GitHub.com by executing the command as follows and then go to terraform-oci-private-oke directory:
 
 ```
-[opc@terraform-server ~]$ git clone https://github.com/mlinxfeld/terraform-oci-oke-container-instance
-Cloning into 'terraform-oci-oke-container-instance'...
+[opc@terraform-server ~]$ git clone https://github.com/mlinxfeld/terraform-oci-container-instance
+Cloning into 'terraform-oci-container-instance'...
 remote: Enumerating objects: 29, done.
 remote: Counting objects: 100% (29/29), done.
 remote: Compressing objects: 100% (20/20), done.
@@ -48,9 +48,9 @@ remote: Total 29 (delta 9), reused 28 (delta 8), pack-reused 0
 Receiving objects: 100% (29/29), 308.42 KiB | 2.27 MiB/s, done.
 Resolving deltas: 100% (9/9), done.
 
-[opc@terraform-server ~]$ cd terraform-oci-oke-container-instance/
+[opc@terraform-server ~]$ cd terraform-oci-container-instance/
 
-[opc@terraform-server terraform-oci-oke-container-instance]$ ls -latr
+[opc@terraform-server terraform-oci-container-instance]$ ls -latr
 
 -rw-r--r--.  1 opc opc  7957 Jan 26 14:32 schema.yaml
 -rw-r--r--.  1 opc opc   292 Jan 26 14:32 compartment.tf
@@ -71,9 +71,9 @@ drwxr-xr-x.  2 opc opc    60 Jan 26 14:32 templates
 Within web browser go to URL: https://www.terraform.io/downloads.html. Find your platform and download the latest version of your terraform runtime. Add directory of terraform binary into PATH and check terraform version:
 
 ```
-[opc@terraform-server terraform-oci-oke-container-instance]$ export PATH=$PATH:/home/opc/terraform
+[opc@terraform-server terraform-oci-container-instance]$ export PATH=$PATH:/home/opc/terraform
 
-[opc@terraform-server terraform-oci-oke-container-instance]$ terraform --version
+[opc@terraform-server terraform-oci-container-instance]$ terraform --version
 
 Terraform v1.0.0
 
@@ -85,7 +85,7 @@ is 1.2.2. You can update by downloading from https://www.terraform.io/downloads.
 Next create environment file with TF_VARs:
 
 ```
-[opc@terraform-server terraform-oci-oke-container-instance]$ vi setup_oci_tf_vars.sh
+[opc@terraform-server terraform-oci-container-instance]$ vi setup_oci_tf_vars.sh
 export TF_VAR_user_ocid="ocid1.user.oc1..aaaaaaaaob4qbf2(...)uunizjie4his4vgh3jx5jxa"
 export TF_VAR_tenancy_ocid="ocid1.tenancy.oc1..aaaaaaaas(...)krj2s3gdbz7d2heqzzxn7pe64ksbia"
 export TF_VAR_compartment_ocid="ocid1.tenancy.oc1..aaaaaaaasbktyckn(...)ldkrj2s3gdbz7d2heqzzxn7pe64ksbia"
@@ -95,14 +95,14 @@ export TF_VAR_region="eu-frankfurt-1"
 export TF_VAR_ocir_user_name="<oci_iam_user>"
 export TF_VAR_ocir_user_password="<oci_iam_auth_token>"
 
-[opc@terraform-server terraform-oci-oke-container-instance]$ source setup_oci_tf_vars.sh
+[opc@terraform-server terraform-oci-container-instance]$ source setup_oci_tf_vars.sh
 ```
 
 #### STEP 4.
 Run *terraform init* with upgrade option just to download the lastest neccesary providers:
 
 ```
-[opc@terraform-server terraform-oci-oke-container-instance]$ terraform init 
+[opc@terraform-server terraform-oci-container-instance]$ terraform init 
 
 Initializing the backend...
 
@@ -144,7 +144,7 @@ commands will detect it and remind you to do so if necessary.
 Run *terraform apply* to provision the content of this repo (type **yes** to confirm the the apply phase):
 
 ```
-[opc@terraform-server terraform-oci-oke-container-instance]$ terraform apply
+[opc@terraform-server terraform-oci-container-instance]$ terraform apply
 
 data.template_file.dockerfile_deployment: Reading...
 data.template_file.dockerfile_deployment: Read complete after 0s [id=1ac7ce1728be676fb9c803f88f073d72624b667d3ceea17887a0b0f700132721]
@@ -255,7 +255,7 @@ Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
 After testing the environment you can remove the OCI OKE infra. You should just run *terraform destroy* (type **yes** for confirmation of the destroy phase):
 
 ```
-[opc@terraform-server terraform-oci-oke-container-instance]$ terraform destroy -auto-approve
+[opc@terraform-server terraform-oci-container-instance]$ terraform destroy -auto-approve
 data.template_file.dockerfile_deployment: Reading...
 data.template_file.dockerfile_deployment: Read complete after 0s [id=1ac7ce1728be676fb9c803f88f073d72624b667d3ceea17887a0b0f700132721]
 local_file.dockerfile_deployment: Refreshing state... [id=9c05f8f8371a058f5c017c23419828e747c26895]
