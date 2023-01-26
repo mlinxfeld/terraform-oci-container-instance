@@ -56,7 +56,7 @@ Resolving deltas: 100% (9/9), done.
 -rw-r--r--.  1 opc opc   292 Jan 26 14:32 compartment.tf
 -rw-r--r--.  1 opc opc 21235 Jan 26 14:32 README.md
 drwxr-xr-x.  2 opc opc    60 Jan 26 14:32 templates
--rw-r--r--.  1 opc opc  1645 Jan 26 14:34 deploy.tf
+-rw-r--r--.  1 opc opc  1645 Jan 26 14:34 artifacts_container_repository.tf
 -rw-r--r--.  1 opc opc   743 Jan 26 14:37 provider.tf
 -rw-r--r--.  1 opc opc   952 Jan 26 14:49 variables.tf
 -rw-r--r--.  1 opc opc     3 Jan 26 14:52 outputs.tf
@@ -188,7 +188,7 @@ Terraform used the selected providers to generate the following execution plan. 
 
 (...)
 
-Plan: 10 to add, 0 to change, 0 to destroy.
+Plan: 11 to add, 0 to change, 0 to destroy.
 
 Changes to Outputs:
   + FoggyKitchenContainerInstancePublicIP = (known after apply)
@@ -293,5 +293,5 @@ oci_core_virtual_network.FoggyKitchenVCN: Destruction complete after 1s
 oci_identity_compartment.FoggyKitchenCompartment: Destroying... [id=ocid1.compartment.oc1..aaaaaaaayxvhhjidfxsq35muvshgxv62ac2mn6mi2yo2xqzsq53jgkuozfwq]
 oci_identity_compartment.FoggyKitchenCompartment: Destruction complete after 0s
 
-Destroy complete! Resources: 10 destroyed.
+Destroy complete! Resources: 11 destroyed.
 ```

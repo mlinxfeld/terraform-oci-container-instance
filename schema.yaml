@@ -31,7 +31,6 @@ variableGroups:
   - ocir_namespace
   - ocir_repo_name
   - ocir_docker_repository
-  - ocir_user_email
 
 - title: "Container Instance Optional Configuration"
   visible: 

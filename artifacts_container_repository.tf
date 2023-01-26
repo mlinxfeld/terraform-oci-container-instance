@@ -1,3 +1,10 @@
+resource "oci_artifacts_container_repository" "FoggyKitchenArtifactsContainerRepository" {
+  provider       = oci.targetregion
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  display_name   = "${var.ocir_repo_name}/fknginx"
+  is_public      = false
+}
+
 resource "local_file" "indexhtml_deployment" {
   content  = data.template_file.indexhtml_deployment.rendered
   filename = "${path.module}/index.html"
@@ -11,7 +18,8 @@ resource "local_file" "dockerfile_deployment" {
 resource "null_resource" "deploy_to_ocir" {
   depends_on = [
   local_file.indexhtml_deployment,
-  local_file.dockerfile_deployment
+  local_file.dockerfile_deployment,
+  oci_artifacts_container_repository.FoggyKitchenArtifactsContainerRepository
   ]
 
   provisioner "local-exec" {
