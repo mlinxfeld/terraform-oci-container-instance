@@ -41,12 +41,12 @@ Clone the repo from GitHub.com by executing the command as follows and then go t
 ```
 [opc@terraform-server ~]$ git clone https://github.com/mlinxfeld/terraform-oci-container-instance
 Cloning into 'terraform-oci-container-instance'...
-remote: Enumerating objects: 29, done.
-remote: Counting objects: 100% (29/29), done.
-remote: Compressing objects: 100% (20/20), done.
-remote: Total 29 (delta 9), reused 28 (delta 8), pack-reused 0
-Receiving objects: 100% (29/29), 308.42 KiB | 2.27 MiB/s, done.
-Resolving deltas: 100% (9/9), done.
+remote: Enumerating objects: 24, done.
+remote: Counting objects: 100% (24/24), done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 24 (delta 6), reused 21 (delta 3), pack-reused 0
+Receiving objects: 100% (24/24), 10.31 KiB | 959.00 KiB/s, done.
+Resolving deltas: 100% (6/6), done.
 
 [opc@terraform-server ~]$ cd terraform-oci-container-instance/
 
