@@ -35,8 +35,32 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
   }
   vnics {
     subnet_id = oci_core_subnet.FoggyKitchenContainerInstanceSubnet.id
-    is_public_ip_assigned = "true"
+    is_public_ip_assigned = var.enable_public_ip
   }
   display_name = "FoggyKitchenContainerInstance"
   state        = "ACTIVE"
+}
+
+data "oci_core_private_ips" "FoggyKitchenContainerInstance_IPS1" {
+  provider   = oci.targetregion
+  vnic_id    = oci_container_instances_container_instance.FoggyKitchenContainerInstance.vnics[0].vnic_id
+  subnet_id  = oci_core_subnet.FoggyKitchenContainerInstanceSubnet.id
+}
+
+output "FoggyKitchenContainerInstance_VNIC1_OCID" {
+  value = oci_container_instances_container_instance.FoggyKitchenContainerInstance.vnics[0].vnic_id
+}
+
+output "FoggyKitchenContainerInstance_IPS1" {
+  value = data.oci_core_private_ips.FoggyKitchenContainerInstance_IPS1.private_ips[0]
+}
+
+resource "oci_core_public_ip" "FoggyKitchenContainerInstance_PublicReservedIP" {
+  provider       = oci.targetregion
+  count          = var.enable_reserved_public_ip ? 1 : 0
+  depends_on     = [oci_container_instances_container_instance.FoggyKitchenContainerInstance]
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  display_name   = "FoggyKitchenContainerInstance_PublicReservedIP"
+  lifetime       = "RESERVED"
+  private_ip_id = data.oci_core_private_ips.FoggyKitchenContainerInstance_IPS1.private_ips[0]["id"]
 }

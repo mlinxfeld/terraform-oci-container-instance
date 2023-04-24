@@ -11,6 +11,14 @@ variable "availablity_domain_name" {
   default = ""
 }
 
+variable "enable_reserved_public_ip" {
+  default = false
+}
+
+variable "enable_public_ip" {
+  default = false
+}
+
 variable "container_instance_shape" {
   default = "CI.Standard.E4.Flex"
 }
