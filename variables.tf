@@ -45,4 +45,11 @@ variable "network_cidrs" {
   }
 }
 
+variable "enable_reserved_public_ip" {
+  default = false
+}
+
+variable "enable_public_ip" {
+  default = false
+}
 
