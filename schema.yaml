@@ -41,6 +41,14 @@ variableGroups:
   - container_instance_shape_memory
   - container_instance_shape_ocpus
 
+- title: "Network Optiona Configuration"
+  visible:
+      and:
+        - show_advanced
+  variables:
+  - enable_ephemeral_public_ip
+  - enable_reserved_public_ip
+  
 variables:
 
   show_advanced:
@@ -147,7 +155,19 @@ variables:
     description: "Choose OCIR Docker Repository."
     required: false
 
-  
+  enable_ephemeral_public_ip:
+    type: boolean
+    title: "Enable Public Ephemeral IP?"
+    description: "Use Public Ephemeral IP Address for Container Instance"
+    visible: true
+    default: false
+    
+  enable_reserved_public_ip:
+    type: boolean
+    title: "Enable Public Reserved IP?"
+    description: "Use Public Reserved IP Address for Container Instance"
+    visible: true
+    default: false
 
 
 
