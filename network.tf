@@ -14,6 +14,13 @@ resource "oci_core_internet_gateway" "FoggyKitchenInternetGateway" {
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 }
 
+resource "oci_core_nat_gateway" "FoggyKitchenNATGateway" {
+  provider       = oci.targetregion
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  display_name   = "FoggyKitchenNATGateway"
+  vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
+}
+
 resource "oci_core_route_table" "FoggyKitchenVCNPublicRouteTable" {
   provider       = oci.targetregion
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
@@ -24,7 +31,21 @@ resource "oci_core_route_table" "FoggyKitchenVCNPublicRouteTable" {
     description       = "Traffic to/from internet"
     destination       = "0.0.0.0/0"
     destination_type  = "CIDR_BLOCK"
-    network_entity_id = oci_core_internet_gateway.FoggyKitchenInternetGateway.id
+    network_entity_id = (var.enable_public_ip || var.enable_reserved_public_ip) ? oci_core_internet_gateway.FoggyKitchenInternetGateway.id : oci_core_nat_gateway.FoggyKitchenNATGateway.id
+  }
+}
+
+resource "oci_core_route_table" "FoggyKitchenVCNPrivateRouteTable" {
+  provider       = oci.targetregion
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
+  display_name   = "FoggyKitchenVCNPrivateRouteTable"
+
+  route_rules {
+    description       = "Traffic to/from internet"
+    destination       = "0.0.0.0/0"
+    destination_type  = "CIDR_BLOCK"
+    network_entity_id = oci_core_nat_gateway.FoggyKitchenNATGateway.id
   }
 }
 
@@ -103,7 +124,7 @@ resource "oci_core_subnet" "FoggyKitchenContainerInstanceSubnet" {
   dns_label                  = "consub"
   vcn_id                     = oci_core_virtual_network.FoggyKitchenVCN.id
   prohibit_public_ip_on_vnic = false
-  route_table_id             = oci_core_route_table.FoggyKitchenVCNPublicRouteTable.id
+  route_table_id             = (var.enable_public_ip || var.enable_reserved_public_ip) ? oci_core_route_table.FoggyKitchenVCNPublicRouteTable.id : oci_core_route_table.FoggyKitchenVCNPrivateRouteTable.id
   dhcp_options_id            = oci_core_virtual_network.FoggyKitchenVCN.default_dhcp_options_id
   security_list_ids          = [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList.id]
 }
