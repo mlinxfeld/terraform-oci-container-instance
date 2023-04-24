@@ -108,4 +108,13 @@ resource "oci_core_subnet" "FoggyKitchenContainerInstanceSubnet" {
   security_list_ids          = [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList.id]
 }
 
+resource "oci_core_public_ip" "FoggyKitchenContainerInstance_PublicReservedIP" {
+  provider       = oci.targetregion
+  count          = var.enable_reserved_public_ip ? 1 : 0
+  depends_on     = [oci_container_instances_container_instance.FoggyKitchenContainerInstance]
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  display_name   = "FoggyKitchenContainerInstance_PublicReservedIP"
+  lifetime       = "RESERVED"
+  private_ip_id = data.oci_core_private_ips.FoggyKitchenContainerInstance_IPS1.private_ips[0]["id"]
+}
 
