@@ -64,35 +64,10 @@ resource "oci_core_security_list" "FoggyKitchenContainerInstanceSubnetSecurityLi
     stateless   = false
 
     tcp_options {
-      max = local.ssh_port_number
-      min = local.ssh_port_number
-    }
-  }
-
-  ingress_security_rules {
-    source      = lookup(var.network_cidrs, "ALL-CIDR")
-    source_type = "CIDR_BLOCK"
-    protocol    = local.tcp_protocol_number
-    stateless   = false
-
-    tcp_options {
       max = local.http_port_number
       min = local.http_port_number
     }
   }
-
-  ingress_security_rules {
-    source      = lookup(var.network_cidrs, "ALL-CIDR")
-    source_type = "CIDR_BLOCK"
-    protocol    = local.tcp_protocol_number
-    stateless   = false
-
-    tcp_options {
-      max = local.https_port_number
-      min = local.https_port_number
-    }
-  }
-
 
   ingress_security_rules {
     source      = lookup(var.network_cidrs, "ALL-CIDR")
