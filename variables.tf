@@ -50,6 +50,6 @@ variable "enable_reserved_public_ip" {
 }
 
 variable "enable_ephemeral_public_ip" {
-  default = true
+  default = false
 }
 
