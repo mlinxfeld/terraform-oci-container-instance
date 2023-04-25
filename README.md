@@ -94,6 +94,8 @@ export TF_VAR_private_key_path="/tmp/oci_api_key.pem"
 export TF_VAR_region="eu-frankfurt-1"
 export TF_VAR_ocir_user_name="<oci_iam_user>"
 export TF_VAR_ocir_user_password="<oci_iam_auth_token>"
+export TF_VAR_enable_reserved_public_ip="true"
+export TF_VAR_enable_ephemeral_public_ip="false"
 
 [opc@terraform-server terraform-oci-container-instance]$ source setup_oci_tf_vars.sh
 ```
