@@ -41,7 +41,7 @@ variableGroups:
   - container_instance_shape_memory
   - container_instance_shape_ocpus
 
-- title: "Network Optiona Configuration"
+- title: "Network Optional Configuration"
   visible:
       and:
         - show_advanced
