@@ -35,7 +35,7 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
   }
   vnics {
     subnet_id = oci_core_subnet.FoggyKitchenContainerInstanceSubnet.id
-    is_public_ip_assigned = var.enable_ephemeral_public_ip || var.enable_reserved_public_ip
+    is_public_ip_assigned = var.enable_ephemeral_public_ip
   }
   display_name = "FoggyKitchenContainerInstance"
   state        = "ACTIVE"
