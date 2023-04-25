@@ -252,7 +252,7 @@ Apply complete! Resources: 10 added, 0 changed, 0 destroyed.
 ```
 
 #### STEP 6.
-After testing the environment you can remove the OCI OKE infra. You should just run *terraform destroy* (type **yes** for confirmation of the destroy phase):
+After testing the environment you can remove the OCI Conatiner Instance infra. You should just run *terraform destroy* (type **yes** for confirmation of the destroy phase):
 
 ```
 [opc@terraform-server terraform-oci-container-instance]$ terraform destroy -auto-approve
