@@ -124,7 +124,7 @@ resource "oci_core_subnet" "FoggyKitchenContainerInstanceSubnet" {
   dns_label                  = "consub"
   vcn_id                     = oci_core_virtual_network.FoggyKitchenVCN.id
   prohibit_public_ip_on_vnic = false
-  route_table_id             = (var.enable_emphemeral_public_ip || var.enable_reserved_public_ip) ? oci_core_route_table.FoggyKitchenVCNPublicRouteTable.id : oci_core_route_table.FoggyKitchenVCNPrivateRouteTable.id
+  route_table_id             = (var.enable_ephemeral_public_ip || var.enable_reserved_public_ip) ? oci_core_route_table.FoggyKitchenVCNPublicRouteTable.id : oci_core_route_table.FoggyKitchenVCNPrivateRouteTable.id
   dhcp_options_id            = oci_core_virtual_network.FoggyKitchenVCN.default_dhcp_options_id
   security_list_ids          = [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList.id]
 }
