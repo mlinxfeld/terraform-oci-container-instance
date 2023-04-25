@@ -82,7 +82,7 @@ is 1.2.2. You can update by downloading from https://www.terraform.io/downloads.
 ```
 
 #### STEP 3. 
-Next create environment file with TF_VARs:
+Next create environment file with TF_VARs (we assume Container Instance will be exposed to public via ephemeral public IP):
 
 ```
 [opc@terraform-server terraform-oci-container-instance]$ vi setup_oci_tf_vars.sh
@@ -94,8 +94,8 @@ export TF_VAR_private_key_path="/tmp/oci_api_key.pem"
 export TF_VAR_region="eu-frankfurt-1"
 export TF_VAR_ocir_user_name="<oci_iam_user>"
 export TF_VAR_ocir_user_password="<oci_iam_auth_token>"
-export TF_VAR_enable_reserved_public_ip="true"
-export TF_VAR_enable_ephemeral_public_ip="false"
+export TF_VAR_enable_reserved_public_ip=false
+export TF_VAR_enable_ephemeral_public_ip=true
 
 [opc@terraform-server terraform-oci-container-instance]$ source setup_oci_tf_vars.sh
 ```
