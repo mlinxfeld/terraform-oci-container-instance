@@ -28,29 +28,7 @@ data "oci_objectstorage_namespace" "test_namespace" {
   compartment_id = var.tenancy_ocid
 }
 
-data "template_file" "dockerfile_deployment" {
 
-  template = "${file("${path.module}/templates/dockerfile.template")}"
-  vars     = {
-    NGINX_PORT = var.nginx_port
-  }
-}
-
-data "template_file" "indexhtml_deployment" {
-
-  template = "${file("${path.module}/templates/index.template.html")}"
-  vars     = {
-    image_url = "${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/fknginx:latest" 
-  }
-}
-
-
-data "template_file" "nginxconf_deployment" {
-
-  template = "${file("${path.module}/templates/nginx.template.conf")}"
-  vars     = {
-  }
-}
 
 
 data "oci_core_vnic" "FoggyKitchenContainerInstanceVnic" {
