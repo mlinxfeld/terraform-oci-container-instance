@@ -37,7 +37,7 @@ resource "null_resource" "deploy_to_ocir" {
   }
 
   provisioner "local-exec" {
-    command = "docker build -t fknginx ."
+    command = "docker -f docker/Dockerfile --build-arg NGINX_PORT=${var.nginx_port} -t fknginx ."
   }  
 
   provisioner "local-exec" {
@@ -51,21 +51,6 @@ resource "null_resource" "deploy_to_ocir" {
   provisioner "local-exec" {
     when    = destroy
     command = "image=$(docker images | grep fknginx | awk -F ' ' '{print $3}') ; docker rmi -f $image &> /dev/null ; echo $image"
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "rm -rf dockerfile"
-  }
-
-  provisioner "local-exec" {
-    when    = destroy
-    command = "rm -rf index.html"
-  }
-  
-   provisioner "local-exec" {
-    when    = destroy
-    command = "rm -rf nginx.conf"
   }
 }  
 
