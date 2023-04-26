@@ -153,7 +153,7 @@ body {
   top: 100%;
   flex-direction: column;
   display: none;
-  min-width: 150px; /* added minimum width to prevent submenu from collapsing */
+  min-width: 100px; /* added minimum width to prevent submenu from collapsing */
 }
 
 .top-menu li {
