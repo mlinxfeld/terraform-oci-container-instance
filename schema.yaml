@@ -48,6 +48,7 @@ variableGroups:
   variables:
   - enable_ephemeral_public_ip
   - enable_reserved_public_ip
+  - nginx_port
   
 variables:
 
@@ -169,5 +170,14 @@ variables:
     visible: true
     default: false
 
+  nginx_port:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 65535
+    multipleOf: 1
+    default: 80
+    title: "NGINX Port in Container Instance"
+    description: "Choose NGINX Port deployed in Container Instance."
 
 
