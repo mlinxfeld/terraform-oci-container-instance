@@ -53,3 +53,6 @@ variable "enable_ephemeral_public_ip" {
   default = false
 }
 
+variable "nginx_port" {
+  default = 80
+}
