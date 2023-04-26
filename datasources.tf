@@ -32,6 +32,7 @@ data "template_file" "dockerfile_deployment" {
 
   template = "${file("${path.module}/templates/dockerfile.template")}"
   vars     = {
+    NGINX_PORT = var.nginx_port
   }
 }
 
