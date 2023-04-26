@@ -37,6 +37,11 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
     subnet_id = oci_core_subnet.FoggyKitchenContainerInstanceSubnet.id
     is_public_ip_assigned = var.enable_ephemeral_public_ip
   }
+  
+   environment_variables = {
+      "NGINX_PORT" = var.nginx_port
+   }
+  
   display_name = "FoggyKitchenContainerInstance"
   state        = "ACTIVE"
 }
