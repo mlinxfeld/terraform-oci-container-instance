@@ -1,0 +1,875 @@
+html, body {
+  background-color: white;
+  font-family: 'Andika';font-size: 18px;
+}
+
+body {
+  padding-top: 60px; /* adjust the value according to the height of the navigation bar */
+  padding-bottom: 50px; /* adjust to match the height of the footer */
+}
+
+.call2action {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #2879ff;
+  color: white;
+  text-decoration: none;
+  border-radius: 20px;
+}
+
+.hamburger-button {
+  display: none;
+}
+
+.mobile-menu {
+   display: none;
+}
+
+.content {
+  max-width: 100%;
+}
+
+.logo-img {
+  width: inherit;
+  height: inherit;
+}
+
+.facebook-logo {
+  width: 120px; 
+  height: 84px; 
+}
+
+.fb-mobile-div {
+  display: none;
+}
+
+.fb-mobile-logo {
+  display: none;
+}
+
+.logo-div {
+  width: 130px;
+  height: 40px;
+  object-fit: none;
+  float: left;
+  margin: 5px;
+  padding: 3px;
+}
+
+.logo-link {
+  z-index: 102;
+}
+
+.top-menu {
+  background-color: #2879ff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 101;
+  padding-right: 0;
+  padding-left: 0;
+  transition: top 0.3s; /* Transition effect when sliding down (and up) */  
+  font-family: 'Andika';font-size: 18px;
+}
+
+.top-menu a {
+ color: #eab00f;
+ font-size: 0.8em;
+ display: inline-block;
+ padding: 15px;
+ text-decoration: none;
+ float: right;
+ position: relative; /* add relative position */
+}
+
+.top-menu a::after { /* add pseudo-element after */
+ content: "";
+ position: absolute;
+ display: block;
+ width: 0%;
+ height: 2px;
+ bottom: 0;
+ left: 0;
+ background-color: white;
+ transition: width 0.3s ease; / transition width instead of transform */
+}
+
+.top-menu a:hover::after {
+ width: 100%; /* increase width on hover */
+}
+
+.top-menu .aleft {
+  float: left;
+}
+
+.menu-item a:before {
+  content: "\f015"; /* Home icon */
+  font-family: "Font Awesome 5 Free";
+}
+
+.top-menu i {
+  margin-right: 10px; /* Adjust this value to increase or decrease the margin */
+  margin-left: 10px; /* Adjust this value to increase or decrease left margin */
+}
+
+.top-menu .menu-icon {
+  margin-right: 10px; /* Adjust this value to increase or decrease the margin */
+}
+
+.top-menu .chevron-down {
+  margin-left: 10px; /* Adjust this value to increase or decrease left margin */
+}
+
+.top-menu a {
+  text-decoration: none;
+}
+
+.top-menu a::before {
+  content: "";
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.top-menu a:hover::before {
+  transform: scaleX(1);
+}
+
+.top-menu ul {
+  background-color: #555;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+  position: absolute;
+  top: 100%;
+  flex-direction: column;
+  display: none;
+  min-width: 150px; /* added minimum width to prevent submenu from collapsing */
+}
+
+.top-menu li {
+  position: relative;
+}
+
+.top-menu li:hover > ul {
+  display: block;
+}
+
+.top-menu ul a {
+  color: #fff;
+  display: block;
+  padding: 15px;
+  text-decoration: none;
+  float: left;  
+}
+
+.top-menu > li ul {
+  z-index: 102; /* ensure the submenus appear above the content */
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+.blogtopic {
+  position: relative;
+  width: 100%;
+  font-family: 'Andika';font-size: 18px;
+  color: black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.blogdate {
+  position: relative;
+  display: block;
+  width: 20%;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  font-family: 'Andika';font-size: 18px;
+  color: black;
+}
+
+.blogdateday {
+  position: relative;
+  display: block;
+  width: 100%;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  font-family: 'Andika';font-size: 40px;
+  color: #2879ff;
+}
+
+.blogdatemonthyear {
+  position: relative;
+  display: block;
+  width: 100%;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  font-family: 'Andika';font-size: 12px;
+  color: black;
+}
+
+.blogtitle {
+  position: relative;
+  display: block;
+  width: 80%;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  font-family: 'Andika';font-size: 18px;
+  color: black;
+}
+
+body {
+  font-family: 'Andika';font-size: 18px;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel-container {
+  position: relative;
+  top: 30px;
+  left: 0px;
+  width: 100%;
+  height: 300px;
+}
+
+.carousel-images {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.carousel-images img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.maincontainer {
+  max-width: 1000px; /* adjust the max-width value */
+  margin-top: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  top: 0px;
+  left: 10%;
+  right: 10%;
+  width: 100%;
+  z-index: 100;
+  padding-right: 0;
+  padding-left: 0;
+  position: relative;
+}
+
+.maincontainer2 {
+  max-width: 1400px; /* adjust the max-width value */
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  top: 0px;
+  left: 10%;
+  right: 10%;
+  width: 100%;
+  z-index: 100;
+  padding-right: 0;
+  padding-left: 0;
+  position: relative;
+}
+
+.leftpane {
+  color: black;
+  width: 70%; /* adjust the width value */
+  margin-right: 10px;
+  margin-left: 10px;
+  top: 50px;
+  position: relative;
+}
+
+.rightpane {
+  color: black;
+  width: 25%; /* adjust the width value */
+  margin-right: 10px;
+  margin-left: 10px;
+  top: 50px;
+  position: relative;
+}
+
+.bottompane {
+  display: none;
+}
+
+.leftpane2 {
+  color: black;
+  width: 60%; /* adjust the width value */
+  margin-right: 10px;
+  margin-left: 10px;
+  top: 50px;
+  position: relative;
+}
+
+.rightpane2 {
+  color: black;
+  width: 35%; /* adjust the width value */
+  margin-right: 10px;
+  margin-left: 10px;
+  top: 50px;
+  position: relative;
+}
+
+footer { 
+  position: fixed;
+  bottom: 0;
+  height: 30px;
+  background-color: black;
+  color: white;
+  text-align: center; 
+  left: 0;
+  width: 80%;
+  z-index: 100;
+  padding-right: 100%;
+  padding-left: 10%; 
+  font-family: 'Andika';font-size: 14px;
+}
+
+footer p {
+  margin-top: 10px;
+  float: left;
+}
+
+.media-browser {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 100px;
+  flex-direction: column; /* Add this line */
+}
+
+.media-items {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+.media-items img {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+  margin: 10px;
+}
+
+.media-items iframe {
+  width: 504px;
+  height: 414px;
+  object-fit: cover;
+  margin: 10px;
+}
+
+#dialog-box {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+}
+
+#dialog-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  max-height: 90%;
+  border: 2px solid white;
+  box-sizing: border-box;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+}
+
+.dialog-box span {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+}
+
+#image-title {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: bold;
+  color: #2879ff;
+  background-color: white;
+  text-align: center;
+}
+
+#prev-button,
+#next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+#prev-button {
+  left: 10px;
+}
+
+#next-button {
+  right: 10px;
+}
+
+.hamburger-button.hidden {
+  display: none;
+}
+
+.mobile-menu.hidden {
+  display: none;
+}
+
+/* ---------------------- */
+/* CSS for mobile screens */
+/* ---------------------- */
+
+@media only screen and (max-width: 1200px) {
+
+.top-menu.hidden {
+    display: none;
+}
+
+.hamburger-button.show {
+  display: block;
+}
+
+.hamburger-button.hidden {
+  display: none;
+}
+
+.hamburger-icon.open {
+  display: block;
+  width: 25px;
+  height: 25px;
+  background-color: #333;
+  margin: 5px 0;
+}
+
+.mobile-menu {
+   display: block;
+   position: fixed;
+   top: 0px;
+   left: 0;
+   width: 100%;
+   padding: 8px;
+   background-color: #2879ff;
+   z-index: 102;
+   height: 100px;
+}
+
+.mobile-menu.show {
+   display: block;
+}
+
+.mobile-menu.hidden {
+   display: none;
+}
+
+.mobile-menu a {
+  display: block;
+  padding: 8px;
+}
+  
+.mobile-logo {
+  width: 260px;
+  height: 80px;
+  margin-left: 10px;
+  margin-top: 10px;
+  object-fit: none;
+  float: left;
+  z-index: 101;
+}
+
+.mobile-logo img {
+  width: inherit;
+  height: inherit;
+}
+
+.hamburger-button {
+  display: block;
+  position: absolute;
+  top: 15px;
+  right: 35px;
+  z-index: 102;
+  width: 85px;
+  height: 85px;
+  background-color: #2879ff;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-family: 'Andika';font-size: 40px;
+}
+
+.hamburger-button span {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 4px;
+  background-color: #2879ff;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger-button span:before,
+.hamburger-button span:after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 30px;
+  height: 4px;
+  background-color: #2879ff;
+  transition: all 0.3s ease-in-out;
+}
+
+.hamburger-button span:before {
+  top: -10px;
+}
+
+.hamburger-button span:after {
+  bottom: -10px;
+}
+
+.hamburger-button.clicked span {
+  background-color: transparent;
+}
+
+.hamburger-button.clicked span:before {
+  transform: rotate(45deg);
+  top: 0;
+}
+
+.hamburger-button.clicked span:after {
+  transform: rotate(-45deg);
+  bottom: 0;
+}
+
+.mobile-nav.slide-in {
+  display: none;
+  position: fixed;
+  padding: 10px;
+  top: 110px;
+  right: 5px;
+  min-width: 600px;
+  z-index: 102;
+  background-color: #2879ff;
+  color: #eab00f;
+  padding: 8px;
+  right: -100%;
+  font-family: 'Andika';font-size: 60px;
+  animation: slide-in 0.5s forwards;
+}
+
+@keyframes slide-in {
+  100% {
+    right: 0;
+  }
+}
+
+.mobile-nav.slide-out {
+  display: none;
+  position: fixed;
+  padding: 10px;
+  top: 110px;
+  right: 5px;
+  min-width: 600px;
+  z-index: 102;
+  background-color: #2879ff;
+  color: #eab00f;
+  padding: 8px;
+  right: 0;
+  font-family: 'Andika'; font-size: 60px;
+  animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-out {
+  100% {
+    right: -100%;
+  }
+}
+
+.mobile-nav i {
+  margin-right: 10px; /* Adjust this value to increase or decrease the margin */
+  margin-left: 10px; /* Adjust this value to increase or decrease left margin */
+}
+
+.mobile-nav a {
+  color: #eab00f;
+  font-size: 0.8em;
+  display: block;
+  padding: 8px;
+  font-family: 'Andika';font-size: 60px;
+}
+
+.mobile-nav .aleft {
+  padding-left: 25px;
+}
+
+.mobile-nav .chevron-down {
+  position: relative;
+  top: 0px;
+  right: 5px;
+  font-size: 60px;
+}
+
+.mobile-nav .chevron-up {
+  position: relative;
+  top: 0px;
+  right: 5px;
+  font-size: 60px;
+}
+
+.top-menu {
+  display: none;
+}
+
+.menu-icon {
+  display: block;
+}
+
+.top-menu.sticky {
+  position: fixed;
+}
+
+.maincontainer {
+   max-width: 100%;
+   margin-top: 0px;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: space-between;
+   top: 120px;
+   left: 5px;
+   right: 5px;
+   width: 100%;
+   z-index: 100;
+   padding-right: 0;
+   padding-left: 0;
+   position: relative;
+   font-family: 'Andika'; font-size: 40px;
+} 
+
+.leftpane {
+  color: black;
+  width: 80%;
+  margin-right: 10px;
+  margin-left: 20px;
+  top: 0px;
+  position: relative;
+  font-family: 'Andika';font-size: 40px;
+}
+
+.rightpane {
+  display: none;
+}
+
+.rightpane img {
+  max-width: 30%;
+  width: 30%;
+  height: auto;
+}
+
+.leftpane2 {
+  color: black;
+  width: 80%;
+  margin-right: 10px;
+  margin-left: 20px;
+  top: 0px;
+  position: relative;
+  font-family: 'Andika';font-size: 40px;
+}
+
+.rightpane2 {
+  display: none;
+}
+
+.bottompane {
+  display: block;
+  color: black;
+  width: 100%;
+  margin-right: 20px;
+  margin-left: 20px;
+  top: 0px;
+  position: relative;
+  font-family: 'Andika';font-size: 40px;
+}
+
+.bottompane-image {
+  max-width: 95%;
+  width: 95%;
+  height: auto;
+}
+
+.carousel-container {
+  width: 100%;
+}
+
+.carousel-images img {
+  max-width: 100%;
+  height: auto;
+}
+
+.content {
+  max-width: 100%; 
+}
+
+.carousel-container {
+  position: relative;
+  top: 115px;
+  left: 0px;
+  width: 100%;
+  height: 200px;
+}
+
+.carousel-images {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.maincontainer2 {
+  max-width: 100%;
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  top: 0px;
+  left: 5px;
+  right: 5px;
+  width: 100%;
+  z-index: 100;
+  padding-right: 0;
+  padding-left: 0;
+  position: relative;
+}
+
+.media-browser {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 80px;
+  left: 50px;
+  flex-direction: column; /* Add this line */
+}
+
+footer { 
+  position: fixed;
+  bottom: 0;
+  height: 80px;
+  background-color: black;
+  color: white;
+  text-align: center; 
+  left: 0;
+  width: 80%;
+  z-index: 100;
+  padding-right: 100%;
+  padding-left: 10%; 
+  font-family: 'Andika';font-size: 30px;
+}
+
+footer p {
+  margin-top: 10px;
+  float: left;
+}
+
+.fb-mobile-div {
+  display: block;
+  z-index: 102;
+  width: 85px;  
+  height: 85px;
+  bottom: 20px;
+  right: 20px;
+}
+
+.fb-mobile-logo {
+  position: fixed;
+  z-index: 102;
+  width: 200px;
+  height: 140px;
+  bottom: 50px;
+  right: 10px;
+  display: block;
+}
+
+.blogtitle {
+  position: relative;
+  display: block;
+  width: 80%;
+  top: 5px;
+  left: 5px;
+  right: 5px;
+  bottom: 5px;
+  font-family: 'Andika';font-size: 50px;
+  color: black;
+}
+
+.blogdatemonthyear {
+  position: relative;
+  display: block;
+  width: 100%;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  font-family: 'Andika';font-size: 15px;
+  color: black;
+}
+
+}
