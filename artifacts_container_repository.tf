@@ -5,22 +5,6 @@ resource "oci_artifacts_container_repository" "FoggyKitchenArtifactsContainerRep
   is_public      = false
 }
 
-resource "local_file" "indexhtml_deployment" {
-  content  = data.template_file.indexhtml_deployment.rendered
-  filename = "${path.module}/index.html"
-}
-
-resource "local_file" "dockerfile_deployment" {
-  content  = data.template_file.dockerfile_deployment.rendered
-  filename = "${path.module}/dockerfile"
-}
-
-
-resource "local_file" "nginxconf_deployment" {
-  content  = data.template_file.nginxconf_deployment.rendered
-  filename = "${path.module}/nginx.conf"
-}
-
 resource "null_resource" "deploy_to_ocir" {
   depends_on = [
   local_file.indexhtml_deployment,
