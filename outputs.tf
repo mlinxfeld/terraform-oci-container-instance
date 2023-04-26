@@ -1,5 +1,5 @@
-output "FoggyKitchenContainerInstancePublicIP" {
-   value = data.oci_core_vnic.FoggyKitchenContainerInstanceVnic.public_ip_address
+output "FoggyKitchenContainerInstanceURL" {
+   value = "http://${data.oci_core_vnic.FoggyKitchenContainerInstanceVnic.public_ip_address}:${var.nginx_port}/"
 }
 
 output "FoggyKitchenContainerInstance_VNIC1_OCID" {
