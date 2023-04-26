@@ -62,5 +62,10 @@ resource "null_resource" "deploy_to_ocir" {
     when    = destroy
     command = "rm -rf index.html"
   }
+  
+   provisioner "local-exec" {
+    when    = destroy
+    command = "rm -rf nginx.conf"
+  }
 }  
 
