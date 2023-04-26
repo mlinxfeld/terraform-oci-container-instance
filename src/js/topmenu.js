@@ -67,7 +67,7 @@ const menuData = [
     externalUrl: false,
     mobileMenuFlag: false,
     logo: true,
-    logoSrc: 'img/foggykitchen_logo.png',
+    logoSrc: 'img/foggykitchen_logo.jpeg',
     iconClass: 'logo-img',
     floatLeft: true,
     hasSubmenu: false,
