@@ -312,7 +312,7 @@ body {
 .rightpane {
   color: black;
   width: 25%; /* adjust the width value */
-  margin-right: 10px;
+  margin-right: 200px;
   margin-left: 10px;
   top: 50px;
   position: relative;
