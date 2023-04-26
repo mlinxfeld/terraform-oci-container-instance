@@ -11,7 +11,7 @@ body {
 .call2action {
   display: inline-block;
   padding: 10px 20px;
-  background-color: #2879ff;
+  background-color: #00a0e0;
   color: white;
   text-decoration: none;
   border-radius: 20px;
@@ -61,7 +61,7 @@ body {
 }
 
 .top-menu {
-  background-color: #2879ff;
+  background-color: #00a0e0;
   position: fixed;
   top: 0;
   left: 0;
@@ -74,7 +74,7 @@ body {
 }
 
 .top-menu a {
- color: #eab00f;
+ color: white;
  font-size: 0.8em;
  display: inline-block;
  padding: 15px;
@@ -212,7 +212,7 @@ body {
   right: 2px;
   bottom: 2px;
   font-family: 'Andika';font-size: 40px;
-  color: #2879ff;
+  color: #00a0e0;
 }
 
 .blogdatemonthyear {
@@ -437,7 +437,7 @@ footer p {
   transform: translateX(-50%);
   font-size: 18px;
   font-weight: bold;
-  color: #2879ff;
+  color: #00a0e0;
   background-color: white;
   text-align: center;
 }
@@ -505,7 +505,7 @@ footer p {
    left: 0;
    width: 100%;
    padding: 8px;
-   background-color: #2879ff;
+   background-color: #00a0e0;
    z-index: 102;
    height: 100px;
 }
@@ -546,7 +546,7 @@ footer p {
   z-index: 102;
   width: 85px;
   height: 85px;
-  background-color: #2879ff;
+  background-color: #00a0e0;
   border-radius: 50%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   cursor: pointer;
@@ -561,7 +561,7 @@ footer p {
   transform: translate(-50%, -50%);
   width: 30px;
   height: 4px;
-  background-color: #2879ff;
+  background-color: #00a0e0;
   transition: all 0.3s ease-in-out;
 }
 
@@ -572,7 +572,7 @@ footer p {
   position: absolute;
   width: 30px;
   height: 4px;
-  background-color: #2879ff;
+  background-color: #00a0e0;
   transition: all 0.3s ease-in-out;
 }
 
@@ -606,8 +606,8 @@ footer p {
   right: 5px;
   min-width: 600px;
   z-index: 102;
-  background-color: #2879ff;
-  color: #eab00f;
+  background-color: #00a0e0;
+  color: white;
   padding: 8px;
   right: -100%;
   font-family: 'Andika';font-size: 60px;
@@ -628,8 +628,8 @@ footer p {
   right: 5px;
   min-width: 600px;
   z-index: 102;
-  background-color: #2879ff;
-  color: #eab00f;
+  background-color: #00a0e0;
+  color: white;
   padding: 8px;
   right: 0;
   font-family: 'Andika'; font-size: 60px;
@@ -648,7 +648,7 @@ footer p {
 }
 
 .mobile-nav a {
-  color: #eab00f;
+  color: white;
   font-size: 0.8em;
   display: block;
   padding: 8px;
