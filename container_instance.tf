@@ -14,7 +14,6 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
   containers {
     image_url    = "${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/fknginx:latest"
     display_name = "FoggyKitchenContainerInstance"
-
     health_checks {
       health_check_type        = "HTTP"
       path                     = "path"
@@ -26,6 +25,7 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
       vcpus_limit         = "1.0"
     }
     working_directory = "/mnt"
+    environment_variables = { "NGINX_PORT" = "${var.nginx_port}" }
   }
   shape = var.container_instance_shape
 
@@ -37,8 +37,6 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
     subnet_id = oci_core_subnet.FoggyKitchenContainerInstanceSubnet.id
     is_public_ip_assigned = var.enable_ephemeral_public_ip
   }
-  
-  environment_variables = { "NGINX_PORT" = "${var.nginx_port}" }
   
   display_name = "FoggyKitchenContainerInstance"
   state        = "ACTIVE"
