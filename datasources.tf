@@ -44,6 +44,15 @@ data "template_file" "indexhtml_deployment" {
   }
 }
 
+
+data "template_file" "nginxconf_deployment" {
+
+  template = "${file("${path.module}/templates/nginx.template.conf")}"
+  vars     = {
+  }
+}
+
+
 data "oci_core_vnic" "FoggyKitchenContainerInstanceVnic" {
   provider   = oci.targetregion
   vnic_id = oci_container_instances_container_instance.FoggyKitchenContainerInstance.vnics[0].vnic_id
