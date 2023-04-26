@@ -15,6 +15,12 @@ resource "local_file" "dockerfile_deployment" {
   filename = "${path.module}/dockerfile"
 }
 
+
+resource "local_file" "nginxconf_deployment" {
+  content  = data.template_file.nginxconf_deployment.rendered
+  filename = "${path.module}/nginx.conf"
+}
+
 resource "null_resource" "deploy_to_ocir" {
   depends_on = [
   local_file.indexhtml_deployment,
