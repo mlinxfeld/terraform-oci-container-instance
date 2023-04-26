@@ -17,7 +17,7 @@ resource "null_resource" "deploy_to_ocir" {
   }
 
   provisioner "local-exec" {
-    command = "docker -f docker/Dockerfile --build-arg NGINX_PORT=${var.nginx_port} -t fknginx ."
+    command = "docker build -f docker/Dockerfile --build-arg NGINX_PORT=${var.nginx_port} -t fknginx ."
   }  
 
   provisioner "local-exec" {
