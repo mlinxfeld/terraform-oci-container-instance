@@ -14,17 +14,6 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
   containers {
     image_url    = "${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/fknginx:latest"
     display_name = "FoggyKitchenContainerInstance"
-    #health_checks {
-    #  health_check_type        = "HTTP"
-    #  path                     = "path"
-    #  port                     = "10"
-    #}
-    #is_resource_principal_disabled = "false"
-    #resource_config {
-    #  memory_limit_in_gbs = "1.0"
-    #  vcpus_limit         = "1.0"
-    #}
-    #working_directory = "/mnt"
     environment_variables = { "NGINX_PORT" = "${var.nginx_port}" }
   }
   shape = var.container_instance_shape
