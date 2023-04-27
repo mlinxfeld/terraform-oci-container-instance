@@ -1,4 +1,3 @@
-# Start with nginx image
 FROM nginx:1.14.2
 
 # Copy the nginx configuration file to the container
