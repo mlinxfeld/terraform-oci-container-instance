@@ -1,7 +1,3 @@
-output "FoggyKitchenContainerInstanceURL" {
-   value = local.container_instance_url
-}
-
 output "FoggyKitchenContainerInstance_VNIC1_OCID" {
   value = oci_container_instances_container_instance.FoggyKitchenContainerInstance.vnics[0].vnic_id
 }
