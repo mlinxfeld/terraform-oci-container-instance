@@ -33,7 +33,6 @@ data "oci_objectstorage_namespace" "test_namespace" {
 
 data "oci_core_vnic" "FoggyKitchenContainerInstanceVnic" {
   depends_on = [
-    oci_container_instances_container_instance.FoggyKitchenContainerInstance, 
     oci_core_public_ip.FoggyKitchenContainerInstance_PublicReservedIP
   ]
   provider   = oci.targetregion
@@ -42,7 +41,6 @@ data "oci_core_vnic" "FoggyKitchenContainerInstanceVnic" {
 
 data "oci_core_private_ips" "FoggyKitchenContainerInstance_IPS1" {
   depends_on = [
-    oci_container_instances_container_instance.FoggyKitchenContainerInstance, 
     oci_core_public_ip.FoggyKitchenContainerInstance_PublicReservedIP
   ]
   provider   = oci.targetregion
