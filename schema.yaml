@@ -21,6 +21,7 @@ variableGroups:
   - availablity_domain_name
   - ocir_user_name
   - ocir_user_password
+  - ocir_namespace
   - show_advanced 
 
 - title: "OCIR Optional Configuration"
@@ -28,7 +29,6 @@ variableGroups:
       and:
         - show_advanced
   variables:
-  - ocir_namespace
   - ocir_repo_name
   - ocir_docker_repository
 
@@ -49,6 +49,9 @@ variableGroups:
   - enable_ephemeral_public_ip
   - enable_reserved_public_ip
   - nginx_port
+  - enable_dns 
+  - dns_domain
+  - dns_a_record_ttl
   
 variables:
 
@@ -180,4 +183,36 @@ variables:
     title: "NGINX Port in Container Instance"
     description: "Choose NGINX Port deployed in Container Instance."
 
+  enable_dns:
+    type: boolean
+    title: "Configure DNS Zone?"
+    description: "Decide if you want to configure DNS Public Zone (only for Public Reserved IP)."
+    visible: 
+      and:
+        - enable_reserved_public_ip
+    default: false 
+    required: false
+  
+  dns_domain:
+    type: string
+    required: true
+    title: "DNS Domian Name"
+    description: "Define DNS Domain name for DNS Management."
+    visible: 
+      and:
+        - enable_dns
+        - enable_reserved_public_ip
 
+  dns_a_record_ttl:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 128
+    multipleOf: 1
+    default: 30
+    title: "DNS A Record TTL"
+    description: "Choose Time To Leave value for DNS A Record."
+    visible:
+      and:
+        - enable_dns
+        - enable_reserved_public_ip 

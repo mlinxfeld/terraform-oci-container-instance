@@ -56,3 +56,16 @@ variable "enable_ephemeral_public_ip" {
 variable "nginx_port" {
   default = 80
 }
+
+variable "enable_dns" {
+  default = false
+}
+
+variable "dns_domain" {
+  default = "foggykitchen.xyz"
+}
+
+variable "dns_a_record_ttl" {
+  default = 30
+}
+
