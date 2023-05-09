@@ -17,7 +17,7 @@ resource "null_resource" "deploy_to_ocir" {
   }
 
   provisioner "local-exec" {
-    command = "docker build -f docker/Dockerfile --build-arg NGINX_PORT=${var.nginx_port} -t fknginx ."
+    command = "docker build -f docker/Dockerfile${local.enable_ssl} --build-arg NGINX_PORT=${var.nginx_port} --build-arg NGINX_SSL_PORT=${var.nginx_ssl_port} --build-arg HOST_NAME=${var.dns_domain} -t fknginx ."
   }  
 
   provisioner "local-exec" {

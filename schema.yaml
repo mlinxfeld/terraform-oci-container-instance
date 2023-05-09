@@ -49,6 +49,10 @@ variableGroups:
   - enable_ephemeral_public_ip
   - enable_reserved_public_ip
   - nginx_port
+  - enable_ssl
+  - nginx_ssl_port
+  - ssl_cert
+  - ssl_key
   - enable_dns 
   - dns_domain
   - dns_a_record_ttl
@@ -137,7 +141,7 @@ variables:
     minimum: 1
     maximum: 128
     multipleOf: 1
-    default: 2
+    default: 1
     title: "Container Instance Shape Memory (GB)"
     description: "Choose number GB for Container Instance Memory."
 
@@ -182,6 +186,46 @@ variables:
     default: 80
     title: "NGINX Port in Container Instance"
     description: "Choose NGINX Port deployed in Container Instance."
+
+  enable_ssl:
+    type: boolean
+    title: "Configure SSL for NGINX?"
+    description: "Decide if you want to configure SSL fro NGINX."
+    default: false
+    required: false
+
+  nginx_ssl_port:
+    type: number
+    required: false
+    minimum: 1
+    maximum: 65535
+    multipleOf: 1
+    default: 443
+    title: "NGINX SSL Port in Container Instance"
+    description: "Choose NGINX SSL Port deployed in Container Instance."
+    visible:
+      and:
+        - enable_ssl
+
+  ssl_cert:
+    type: text
+    required: false
+    default: ""
+    title: "SSL Certificate"
+    description: "Paste here SSL Certificate File Content (fullchain.pem)."
+    visible:
+      and:
+        - enable_ssl
+
+  ssl_key:
+    type: text
+    required: false
+    default: ""
+    title: "SSL Certificate Key"
+    description: "Paste here SSL Certificate Key File Content (privkey.pem)."
+    visible:
+      and:
+        - enable_ssl
 
   enable_dns:
     type: boolean
