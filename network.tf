@@ -72,6 +72,18 @@ resource "oci_core_security_list" "FoggyKitchenContainerInstanceSubnetSecurityLi
   ingress_security_rules {
     source      = lookup(var.network_cidrs, "ALL-CIDR")
     source_type = "CIDR_BLOCK"
+    protocol    = local.tcp_protocol_number
+    stateless   = false
+
+    tcp_options {
+      max = local.https_port_number
+      min = local.https_port_number
+    }
+  }
+
+  ingress_security_rules {
+    source      = lookup(var.network_cidrs, "ALL-CIDR")
+    source_type = "CIDR_BLOCK"
     protocol    = local.icmp_protocol_number
     stateless   = false
 
@@ -111,6 +123,6 @@ resource "oci_core_public_ip" "FoggyKitchenContainerInstance_PublicReservedIP" {
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenContainerInstance_PublicReservedIP"
   lifetime       = "RESERVED"
-  private_ip_id = data.oci_core_private_ips.FoggyKitchenContainerInstance_IPS1.private_ips[0]["id"]
+  private_ip_id = var.enable_ephemeral_public_ip ? null : data.oci_core_private_ips.FoggyKitchenContainerInstance_IPS1.private_ips[0]["id"]
 }
 

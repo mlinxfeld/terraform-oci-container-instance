@@ -1,0 +1,47 @@
+FROM nginx:1.14.2
+
+# Copy the nginx configuration file to the container
+COPY ./config/nginx.conf.ssl /etc/nginx/nginx.conf
+RUN mkdir /etc/nginx/conf/
+COPY ./config/mime.types /etc/nginx/conf/mime.types
+COPY ./config/fastcgi.conf /etc/nginx/fastcgi.conf
+COPY ./config/proxy.conf /etc/nginx/proxy.conf
+
+# Create subdirectories for JS scripts and CSS
+RUN mkdir /usr/share/nginx/html/js
+RUN mkdir /usr/share/nginx/html/css
+RUN mkdir /usr/share/nginx/html/img
+
+# Copy the production-ready assets to the container
+COPY ./src/ /usr/share/nginx/html/
+COPY ./src/js /usr/share/nginx/html/js
+COPY ./src/css /usr/share/nginx/html/css
+COPY ./src/img /usr/share/nginx/html/img
+
+# Setup location for SSL cert
+RUN mkdir /etc/ssl/private/
+RUN chmod 750 /etc/ssl/private/ 
+
+# Copy cert files
+COPY ./config/fullchain.pem /etc/ssl/private/
+COPY ./config/privkey.pem /etc/ssl/private/
+
+# Set the default value for NGINX_PORT
+ARG NGINX_PORT=80
+ARG NGINX_SSL_PORT=443
+ARG HOST_NAME=foggykitchen.xyz
+
+# Set the environment variable
+ENV NGINX_PORT=${NGINX_PORT}
+ENV NGINX_SSL_PORT=${NGINX_SSL_PORT}
+ENV HOST_NAME=${HOST_NAME}
+
+# Dynamically set the EXPOSE instruction
+EXPOSE ${NGINX_PORT}
+EXPOSE ${NGINX_SSL_PORT}
+
+# Replace NGINX_PORT with ENV value.
+CMD sed -i "s/{{NGINX_PORT}}/$NGINX_PORT/g" /etc/nginx/nginx.conf && \
+    sed -i "s/{{NGINX_SSL_PORT}}/$NGINX_SSL_PORT/g" /etc/nginx/nginx.conf && \
+    sed -i "s/{{HOST_NAME}}/$HOST_NAME/g" /etc/nginx/nginx.conf && \
+    nginx -g "daemon off;"
