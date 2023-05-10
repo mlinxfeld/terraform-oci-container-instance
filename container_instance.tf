@@ -14,8 +14,16 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
   containers {
     image_url    = "${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/fknginx:latest"
     display_name = "FoggyKitchenContainerInstance"
-    environment_variables = { "NGINX_PORT" = "${var.nginx_port}" }
+    environment_variables = local.environment_variables 
+    dynamic "volume_mounts" {
+    	for_each = var.enable_ssl ? [1] : []
+    	content {
+            mount_path  = "/etc/ssl/private/encrypted/"
+           volume_name = "ssl_volume"
+        }
+    }
   }
+
   shape = var.container_instance_shape
 
   shape_config {
@@ -25,6 +33,22 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
   vnics {
     subnet_id = oci_core_subnet.FoggyKitchenContainerInstanceSubnet.id
     is_public_ip_assigned = var.enable_ephemeral_public_ip
+  }
+
+  dynamic "volumes" {
+    for_each = var.enable_ssl ? [1] : []
+    content {
+     name = "ssl_volume"
+     volume_type = "CONFIGFILE"
+  
+     dynamic "configs" {
+       for_each = local.configs
+       content {
+         data      = base64encode(configs.value.data)
+         file_name = configs.value.file_name
+       }
+     }
+   }
   }
   
   display_name = "FoggyKitchenContainerInstance"
