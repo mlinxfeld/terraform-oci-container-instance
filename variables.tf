@@ -46,11 +46,11 @@ variable "network_cidrs" {
 }
 
 variable "enable_reserved_public_ip" {
-  default = true
+  default = false
 }
 
 variable "enable_ephemeral_public_ip" {
-  default = false
+  default = true
 }
 
 variable "enable_ssl" {
@@ -76,7 +76,7 @@ variable "nginx_ssl_port" {
 }
 
 variable "enable_dns" {
-  default = false 
+  default = false
 }
 
 variable "dns_domain" {
