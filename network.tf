@@ -51,6 +51,7 @@ resource "oci_core_route_table" "FoggyKitchenVCNPrivateRouteTable" {
 
 resource "oci_core_security_list" "FoggyKitchenContainerInstanceSubnetSecurityList" {
   provider       = oci.targetregion
+  count          = var.enable_nsg ? 0 : 1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenContainerInstanceSubnetSecurityList"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
@@ -69,15 +70,18 @@ resource "oci_core_security_list" "FoggyKitchenContainerInstanceSubnetSecurityLi
     }
   }
 
-  ingress_security_rules {
-    source      = lookup(var.network_cidrs, "ALL-CIDR")
-    source_type = "CIDR_BLOCK"
-    protocol    = local.tcp_protocol_number
-    stateless   = false
+  dynamic "ingress_security_rules" {
+    for_each = var.enable_ssl ? [1] : []
+    content {
+      source      = lookup(var.network_cidrs, "ALL-CIDR")
+      source_type = "CIDR_BLOCK"
+      protocol    = local.tcp_protocol_number
+      stateless   = false
 
-    tcp_options {
-      max = local.https_port_number
-      min = local.https_port_number
+      tcp_options {
+         max = local.https_port_number
+         min = local.https_port_number
+      }
     }
   }
 
@@ -103,6 +107,56 @@ resource "oci_core_security_list" "FoggyKitchenContainerInstanceSubnetSecurityLi
 
 }
 
+resource "oci_core_network_security_group" "FoggyKitchenWebSecurityGroup" {
+  provider       = oci.targetregion
+  count          = var.enable_nsg ? 1 : 0
+  compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
+  display_name   = "FoggyKitchenWebSecurityGroup"
+  vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
+}
+
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenWebSecurityEgressGroupRule" {
+  provider                  = oci.targetregion
+  count                     = var.enable_nsg ? 1 : 0
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup[0].id
+  direction                 = "EGRESS"
+  protocol                  = local.all_protocols
+  destination               = lookup(var.network_cidrs, "ALL-CIDR")
+  destination_type          = "CIDR_BLOCK"
+}
+
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenWebSecurityIngressGroupHTTPRule" {
+  provider                  = oci.targetregion
+  count                     = var.enable_nsg ? 1 : 0
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup[0].id
+  direction                 = "INGRESS"
+  protocol                  = local.tcp_protocol_number 
+  source                    = lookup(var.network_cidrs, "ALL-CIDR")
+  source_type               = "CIDR_BLOCK"
+  tcp_options {
+    destination_port_range {
+      max = local.http_port_number 
+      min = local.http_port_number 
+    }
+  }
+}
+
+resource "oci_core_network_security_group_security_rule" "FoggyKitchenWebSecurityIngressGroupHTTPSRule" {
+  provider                  = oci.targetregion
+  count                     = var.enable_nsg && var.enable_ssl ? 1 : 0
+  network_security_group_id = oci_core_network_security_group.FoggyKitchenWebSecurityGroup[0].id
+  direction                 = "INGRESS"
+  protocol                  = local.tcp_protocol_number
+  source                    = lookup(var.network_cidrs, "ALL-CIDR")
+  source_type               = "CIDR_BLOCK"
+  tcp_options {
+    destination_port_range {
+      max = local.https_port_number
+      min = local.https_port_number
+    }
+  }
+}
+
 resource "oci_core_subnet" "FoggyKitchenContainerInstanceSubnet" {
   provider                   = oci.targetregion
   cidr_block                 = lookup(var.network_cidrs, "CONTAINER-SUBNET-CIDR")
@@ -113,7 +167,7 @@ resource "oci_core_subnet" "FoggyKitchenContainerInstanceSubnet" {
   prohibit_public_ip_on_vnic = false
   route_table_id             = (var.enable_ephemeral_public_ip || var.enable_reserved_public_ip) ? oci_core_route_table.FoggyKitchenVCNPublicRouteTable.id : oci_core_route_table.FoggyKitchenVCNPrivateRouteTable.id
   dhcp_options_id            = oci_core_virtual_network.FoggyKitchenVCN.default_dhcp_options_id
-  security_list_ids          = [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList.id]
+  security_list_ids          = var.enable_nsg ? [] : [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList[0].id]
 }
 
 resource "oci_core_public_ip" "FoggyKitchenContainerInstance_PublicReservedIP" {

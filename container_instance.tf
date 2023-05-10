@@ -33,6 +33,7 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
   vnics {
     subnet_id = oci_core_subnet.FoggyKitchenContainerInstanceSubnet.id
     is_public_ip_assigned = var.enable_ephemeral_public_ip
+    nsg_ids = var.enable_nsg ? [oci_core_network_security_group.FoggyKitchenWebSecurityGroup[0].id] : [] 
   }
 
   dynamic "volumes" {

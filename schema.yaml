@@ -56,6 +56,7 @@ variableGroups:
   - enable_dns 
   - dns_domain
   - dns_a_record_ttl
+  - enable_nsg
   
 variables:
 
@@ -259,4 +260,11 @@ variables:
     visible:
       and:
         - enable_dns
-        - enable_reserved_public_ip 
+        - enable_reserved_public_ip
+
+  enable_nsg:
+    type: boolean
+    title: "Configure NSG?"
+    description: "Decide if you want to configure Network Security Group (NSG)."
+    default: false
+    required: false
