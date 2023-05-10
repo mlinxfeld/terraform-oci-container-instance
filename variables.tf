@@ -16,7 +16,7 @@ variable "container_instance_shape" {
 }
 
 variable "container_instance_shape_memory" {
-  default = 2
+  default = 1
 }
 
 variable "container_instance_shape_ocpus" {
@@ -87,3 +87,6 @@ variable "dns_a_record_ttl" {
   default = 30
 }
 
+variable "enable_nsg" {
+  default = false
+}
