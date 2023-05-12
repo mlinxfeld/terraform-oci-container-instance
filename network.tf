@@ -51,7 +51,6 @@ resource "oci_core_route_table" "FoggyKitchenVCNPrivateRouteTable" {
 
 resource "oci_core_security_list" "FoggyKitchenContainerInstanceSubnetSecurityList" {
   provider       = oci.targetregion
-  count          = var.enable_nsg ? 0 : 1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenContainerInstanceSubnetSecurityList"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
@@ -170,7 +169,7 @@ resource "oci_core_subnet" "FoggyKitchenContainerInstanceSubnet" {
   prohibit_public_ip_on_vnic = false
   route_table_id             = (var.enable_ephemeral_public_ip || var.enable_reserved_public_ip) ? oci_core_route_table.FoggyKitchenVCNPublicRouteTable.id : oci_core_route_table.FoggyKitchenVCNPrivateRouteTable.id
   dhcp_options_id            = oci_core_virtual_network.FoggyKitchenVCN.default_dhcp_options_id
-  security_list_ids          = var.enable_nsg ? [] : [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList[0].id]
+  security_list_ids          = [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList.id]
 }
 
 resource "oci_core_public_ip" "FoggyKitchenContainerInstance_PublicReservedIP" {
