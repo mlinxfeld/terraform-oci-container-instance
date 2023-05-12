@@ -51,27 +51,29 @@ resource "oci_core_route_table" "FoggyKitchenVCNPrivateRouteTable" {
 
 resource "oci_core_security_list" "FoggyKitchenContainerInstanceSubnetSecurityList" {
   provider       = oci.targetregion
-  count          = var.enable_nsg ? 0 : 1
   compartment_id = oci_identity_compartment.FoggyKitchenCompartment.id
   display_name   = "FoggyKitchenContainerInstanceSubnetSecurityList"
   vcn_id         = oci_core_virtual_network.FoggyKitchenVCN.id
 
   # Ingress
 
-  ingress_security_rules {
-    source      = lookup(var.network_cidrs, "ALL-CIDR")
-    source_type = "CIDR_BLOCK"
-    protocol    = local.tcp_protocol_number
-    stateless   = false
+  dynamic "ingress_security_rules" {
+    for_each = !var.enable_nsg ? [1] : []
+    content { 
+      source      = lookup(var.network_cidrs, "ALL-CIDR")
+      source_type = "CIDR_BLOCK"
+      protocol    = local.tcp_protocol_number
+      stateless   = false
 
-    tcp_options {
-      max = local.http_port_number
-      min = local.http_port_number
+      tcp_options {
+        max = local.http_port_number
+        min = local.http_port_number
+      }
     }
   }
 
   dynamic "ingress_security_rules" {
-    for_each = var.enable_ssl ? [1] : []
+    for_each = var.enable_ssl && !var.enable_nsg ? [1] : []
     content {
       source      = lookup(var.network_cidrs, "ALL-CIDR")
       source_type = "CIDR_BLOCK"
@@ -167,7 +169,7 @@ resource "oci_core_subnet" "FoggyKitchenContainerInstanceSubnet" {
   prohibit_public_ip_on_vnic = false
   route_table_id             = (var.enable_ephemeral_public_ip || var.enable_reserved_public_ip) ? oci_core_route_table.FoggyKitchenVCNPublicRouteTable.id : oci_core_route_table.FoggyKitchenVCNPrivateRouteTable.id
   dhcp_options_id            = oci_core_virtual_network.FoggyKitchenVCN.default_dhcp_options_id
-  security_list_ids          = var.enable_nsg ? [] : [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList[0].id]
+  security_list_ids          = [oci_core_security_list.FoggyKitchenContainerInstanceSubnetSecurityList.id]
 }
 
 resource "oci_core_public_ip" "FoggyKitchenContainerInstance_PublicReservedIP" {
