@@ -58,20 +58,23 @@ resource "oci_core_security_list" "FoggyKitchenContainerInstanceSubnetSecurityLi
 
   # Ingress
 
-  ingress_security_rules {
-    source      = lookup(var.network_cidrs, "ALL-CIDR")
-    source_type = "CIDR_BLOCK"
-    protocol    = local.tcp_protocol_number
-    stateless   = false
+  dynamic "ingress_security_rules" {
+    for_each = !var.enable_nsg ? [1] : []
+    content { 
+      source      = lookup(var.network_cidrs, "ALL-CIDR")
+      source_type = "CIDR_BLOCK"
+      protocol    = local.tcp_protocol_number
+      stateless   = false
 
-    tcp_options {
-      max = local.http_port_number
-      min = local.http_port_number
+      tcp_options {
+        max = local.http_port_number
+        min = local.http_port_number
+      }
     }
   }
 
   dynamic "ingress_security_rules" {
-    for_each = var.enable_ssl ? [1] : []
+    for_each = var.enable_ssl && !var.enable_nsg ? [1] : []
     content {
       source      = lookup(var.network_cidrs, "ALL-CIDR")
       source_type = "CIDR_BLOCK"
