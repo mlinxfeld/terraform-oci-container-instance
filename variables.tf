@@ -23,6 +23,14 @@ variable "container_instance_shape_ocpus" {
   default = 1
 }
 
+variable "enable_vault" {
+  default = false
+}
+
+variable "vault_secret_id" {
+  default = ""
+}
+
 variable "ocir_namespace" {
   default = ""
 }
@@ -50,7 +58,7 @@ variable "enable_reserved_public_ip" {
 }
 
 variable "enable_ephemeral_public_ip" {
-  default = false
+  default = true
 }
 
 variable "enable_ssl" {

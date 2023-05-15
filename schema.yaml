@@ -19,6 +19,8 @@ variableGroups:
   variables:
   - compartment_ocid
   - availablity_domain_name
+  - enable_vault
+  - vault_secret_id
   - ocir_user_name
   - ocir_user_password
   - ocir_namespace
@@ -99,19 +101,39 @@ variables:
       regionName: ${region}
       compartmentId: ${compartment_ocid}
 
+  enable_vault:
+    type: boolean
+    title: "Enable OCI Vault?"
+    description: "Check if you want to use OCI Vault for OCIR username and password."
+    visible: true
+    default: false
+
+  vault_secret_id:
+    type: string
+    required: true
+    title: "OCI Vault Secret OCID"
+    description: "OCI Vault Secret OCID consisting OCIR username and password"
+    visible:
+      and:
+        - enable_vault
+
   ocir_user_name:
     type: string
     required: true
-    visibile: true
     title: "OCIR username"
-    description: "Oracle Cloud Infrastructure Registry username (your OCI username)" 
+    description: "Oracle Cloud Infrastructure Registry username (your OCI username)"
+    visible:
+      not:
+        - enable_vault
 
   ocir_user_password:
     type: password
     required: true
-    visibile: true
     title: "OCIR user password"
     description: "Oracle Cloud Infrastructure Registry user password (your OCI user authtoken)" 
+    visible:
+      not:
+        - enable_vault
 
   # Optional Configuration
 
@@ -151,6 +173,9 @@ variables:
     title: "OCIR Namespace"
     description: "Choose OCIR Namespace."
     required: false
+    visible:
+      not:
+        - enable_vault
 
   ocir_repo_name:
     type: string

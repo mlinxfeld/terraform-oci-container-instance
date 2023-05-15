@@ -6,9 +6,10 @@ resource "oci_container_instances_container_instance" "FoggyKitchenContainerInst
 
   image_pull_secrets {
     registry_endpoint = "${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/"
-    secret_type       = "BASIC"
-    username          = base64encode("${local.ocir_namespace}/${var.ocir_user_name}")
-    password          = base64encode(var.ocir_user_password)
+    secret_type       = var.enable_vault ? "VAULT" : "BASIC"
+    username          = var.enable_vault ? null : base64encode("${local.ocir_namespace}/${var.ocir_user_name}")
+    password          = var.enable_vault ? null : base64encode(var.ocir_user_password)
+    secret_id         = var.enable_vault ? var.vault_secret_id : null
   }
 
   containers {
