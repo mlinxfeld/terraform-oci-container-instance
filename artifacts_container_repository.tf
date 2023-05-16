@@ -9,7 +9,7 @@ resource "null_resource" "deploy_to_ocir" {
   depends_on = [ oci_artifacts_container_repository.FoggyKitchenArtifactsContainerRepository]
 
   provisioner "local-exec" {
-    command = "echo '${var.ocir_user_password}' |  docker login ${local.ocir_docker_repository} --username ${local.ocir_namespace}/${var.ocir_user_name} --password-stdin"
+    command = "echo '${local.ocir_user_password}' |  docker login ${local.ocir_docker_repository} --username ${local.ocir_user_name} --password-stdin"
   }
 
   provisioner "local-exec" {

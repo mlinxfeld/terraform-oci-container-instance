@@ -41,3 +41,9 @@ data "oci_core_private_ips" "FoggyKitchenContainerInstance_IPS1" {
   vnic_id    = oci_container_instances_container_instance.FoggyKitchenContainerInstance.vnics[0].vnic_id
   subnet_id  = oci_core_subnet.FoggyKitchenContainerInstanceSubnet.id
 }
+
+data "oci_secrets_secretbundle" "FoggyKitchenSecretBundle" {
+  provider   = oci.targetregion
+  secret_id  = var.vault_secret_id
+}
+
