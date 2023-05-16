@@ -4,8 +4,12 @@ variable "fingerprint" {}
 variable "private_key_path" {}
 variable "compartment_ocid" {}
 variable "region" {}
-variable "ocir_user_name" {}
-variable "ocir_user_password" {}
+variable "ocir_user_name" {
+  default = ""
+}
+variable "ocir_user_password" {
+  default = ""
+}
 
 variable "availablity_domain_name" {
   default = ""

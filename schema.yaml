@@ -20,6 +20,7 @@ variableGroups:
   - compartment_ocid
   - availablity_domain_name
   - enable_vault
+  - enable_vault_iam
   - vault_secret_id
   - ocir_user_name
   - ocir_user_password
