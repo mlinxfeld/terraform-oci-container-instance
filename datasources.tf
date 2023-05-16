@@ -43,6 +43,7 @@ data "oci_core_private_ips" "FoggyKitchenContainerInstance_IPS1" {
 }
 
 data "oci_secrets_secretbundle" "FoggyKitchenSecretBundle" {
+  count      = var.enable_vault ? 1 : 0 
   provider   = oci.targetregion
   secret_id  = var.vault_secret_id
 }

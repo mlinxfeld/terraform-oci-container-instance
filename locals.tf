@@ -33,7 +33,7 @@ locals {
  
   environment_variables = var.enable_ssl ? local.environment_variables_ssl : local.environment_variables_nossl
  
-  secret_bundle_content = var.enable_vault ? base64decode(data.oci_secrets_secretbundle.FoggyKitchenSecretBundle.secret_bundle_content[0].content) : ""
+  secret_bundle_content = var.enable_vault ? base64decode(data.oci_secrets_secretbundle.FoggyKitchenSecretBundle[0].secret_bundle_content[0].content) : ""
   ocir_user_name        = var.enable_vault ? jsondecode(local.secret_bundle_content).username : "${local.ocir_namespace}/${var.ocir_user_name}" 
   ocir_user_password    = var.enable_vault ? jsondecode(local.secret_bundle_content).password : var.ocir_user_password
   
