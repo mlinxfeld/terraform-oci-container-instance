@@ -27,6 +27,10 @@ variable "enable_vault" {
   default = false
 }
 
+variable "enable_vault_iam" {
+  default = true
+}
+
 variable "vault_secret_id" {
   default = ""
 }
@@ -58,7 +62,7 @@ variable "enable_reserved_public_ip" {
 }
 
 variable "enable_ephemeral_public_ip" {
-  default = true
+  default = false
 }
 
 variable "enable_ssl" {

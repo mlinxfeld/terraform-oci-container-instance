@@ -1,5 +1,5 @@
 resource "oci_container_instances_container_instance" "FoggyKitchenContainerInstance" {
-  depends_on          = [null_resource.deploy_to_ocir]
+  depends_on          = [null_resource.deploy_to_ocir, oci_identity_policy.FoggyKitchenContainerInstancesVaultPolicy]
   provider            = oci.targetregion
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   availability_domain = var.availablity_domain_name == "" ? data.oci_identity_availability_domains.ADs.availability_domains[0]["name"] : var.availablity_domain_name

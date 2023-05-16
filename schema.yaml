@@ -108,6 +108,15 @@ variables:
     visible: true
     default: false
 
+  enable_vault_iam:
+    type: boolean
+    title: "Enable OCI Vault IAM?"
+    description: "Check if you want to create IAM Dynamic Group and Policy for enabling Container Instances access OCI Vault."
+    default: true 
+    visible:
+      and:
+        - enable_vault
+
   vault_secret_id:
     type: string
     required: true
