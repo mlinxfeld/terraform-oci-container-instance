@@ -1,14 +1,15 @@
 resource "oci_container_instances_container_instance" "FoggyKitchenContainerInstance" {
-  depends_on          = [null_resource.deploy_to_ocir]
+  depends_on          = [null_resource.deploy_to_ocir, oci_identity_policy.FoggyKitchenContainerInstancesVaultPolicy]
   provider            = oci.targetregion
   compartment_id      = oci_identity_compartment.FoggyKitchenCompartment.id
   availability_domain = var.availablity_domain_name == "" ? data.oci_identity_availability_domains.ADs.availability_domains[0]["name"] : var.availablity_domain_name
 
   image_pull_secrets {
     registry_endpoint = "${local.ocir_docker_repository}/${local.ocir_namespace}/${var.ocir_repo_name}/"
-    secret_type       = "BASIC"
-    username          = base64encode("${local.ocir_namespace}/${var.ocir_user_name}")
-    password          = base64encode(var.ocir_user_password)
+    secret_type       = var.enable_vault ? "VAULT" : "BASIC"
+    username          = var.enable_vault ? null : base64encode("${local.ocir_namespace}/${var.ocir_user_name}")
+    password          = var.enable_vault ? null : base64encode(var.ocir_user_password)
+    secret_id         = var.enable_vault ? var.vault_secret_id : null
   }
 
   containers {

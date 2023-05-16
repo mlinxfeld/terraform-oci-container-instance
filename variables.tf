@@ -23,6 +23,18 @@ variable "container_instance_shape_ocpus" {
   default = 1
 }
 
+variable "enable_vault" {
+  default = false
+}
+
+variable "enable_vault_iam" {
+  default = true
+}
+
+variable "vault_secret_id" {
+  default = ""
+}
+
 variable "ocir_namespace" {
   default = ""
 }
